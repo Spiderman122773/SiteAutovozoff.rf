@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Автовозофф.рф | Перевозка автомобилей по всей России</title>
+
+    <link rel="icon" href="https://xn--80aeau7abb1axa.xn--p1ai/wp-content/uploads/2025/05/cropped-WhatsApp-Image-2025-04-22-at-15.56.40-scaled-1-32x32.jpeg" sizes="32x32" />
+    <link rel="apple-touch-icon" href="https://xn--80aeau7abb1axa.xn--p1ai/wp-content/uploads/2025/05/cropped-WhatsApp-Image-2025-04-22-at-15.56.40-scaled-1-180x180.jpeg" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@400;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* ====== БАЗОВЫЕ АНИМАЦИИ ====== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes slideFromLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        @keyframes counterUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Классы для scroll-анимаций */
+        .anim-fade-up   { opacity: 0; }
+        .anim-slide-l   { opacity: 0; }
+        .anim-slide-r   { opacity: 0; }
+        .anim-scale     { opacity: 0; }
+        .anim-fade      { opacity: 0; }
+
+        .anim-fade-up.visible  { animation: fadeUp       0.7s ease forwards; }
+        .anim-slide-l.visible  { animation: slideFromLeft 0.7s ease forwards; }
+        .anim-slide-r.visible  { animation: slideFromRight 0.7s ease forwards; }
+        .anim-scale.visible    { animation: scaleIn      0.6s ease forwards; }
+        .anim-fade.visible     { animation: fadeIn       0.8s ease forwards; }
+
+        .delay-1 { animation-delay: 0.1s !important; }
+        .delay-2 { animation-delay: 0.2s !important; }
+        .delay-3 { animation-delay: 0.3s !important; }
+        .delay-4 { animation-delay: 0.4s !important; }
+        .delay-5 { animation-delay: 0.5s !important; }
+
+        /* ====== HERO-СЛАЙДЕР ====== */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.6) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+            animation: fadeUp 1s ease 0.3s both;
+        }
+        .hero-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+        }
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            max-width: 680px;
+            margin: 0 auto 36px;
+            opacity: 0.92;
+            line-height: 1.7;
+        }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-hero-primary {
+            padding: 15px 36px;
+            background: #7EBEC5;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+            border: none; cursor: pointer;
+        }
+        .btn-hero-primary:hover { background: #5ea8b0; transform: translateY(-2px); }
+        .btn-hero-outline {
+            padding: 15px 36px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.7);
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+        .btn-hero-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+        /* Точки слайдера */
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        .slider-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+        }
+        .slider-dot.active { background: #fff; transform: scale(1.3); }
+
+        /* Стрелки */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .slider-arrow:hover { background: rgba(126,190,197,0.7); }
+        .slider-arrow.prev { left: 24px; }
+        .slider-arrow.next { right: 24px; }
+
+        /* ====== СЧЁТЧИКИ ====== */
+        .stats-section {
+            background: #7EBEC5;
+            padding: 50px 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .stat-item { color: #fff; padding: 10px; }
+        .stat-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .stat-label { font-size: 0.9rem; opacity: 0.85; }
+
+        /* ====== ИНФОРМАЦИОННЫЙ БЛОК ====== */
+        .info-section {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .info-section .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #222;
+            margin-bottom: 12px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.05rem;
+            margin-bottom: 60px;
+        }
+        .info-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        @media(max-width: 800px) { .info-layout { grid-template-columns: 1fr; gap: 36px; } }
+
+        .info-image-wrap {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+        }
+        .info-image-wrap img {
+            width: 100%; height: 380px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .info-image-wrap:hover img { transform: scale(1.04); }
+        .info-image-badge {
+            position: absolute;
+            bottom: 20px; left: 20px;
+            background: #7EBEC5;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .advantages-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .advantages-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 0.97rem;
+            color: #444;
+            padding: 14px 16px;
+            background: #f8fffe;
+            border-radius: 10px;
+            border: 1px solid #e8f5f6;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .advantages-list li:hover { box-shadow: 0 4px 18px rgba(126,190,197,0.15); transform: translateX(4px); }
+        .adv-icon {
+            width: 36px; height: 36px;
+            background: #7EBEC5;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .adv-text strong { display: block; color: #222; font-size: 0.95rem; margin-bottom: 2px; }
+        .adv-text span { font-size: 0.85rem; color: #777; }
+
+        /* ====== ФОТОГАЛЕРЕЯ ====== */
+        .gallery-section {
+            padding: 80px 20px;
+            background: #f5fbfc;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        @media(max-width: 768px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+        @media(max-width: 480px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .gallery-item.tall { grid-row: span 2; }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item.tall img { min-height: 460px; }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay span { color: #fff; font-size: 0.85rem; font-weight: 600; }
+
+        /* Лайтбокс */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.open { display: flex; animation: fadeIn 0.3s ease; }
+        .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 8px; object-fit: contain; }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 24px;
+            color: #fff; font-size: 2rem;
+            background: none; border: none; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lightbox-close:hover { color: #7EBEC5; }
+
+        /* ====== КАК МЫ РАБОТАЕМ ====== */
+        .steps-section {
+            padding: 80px 20px;
+            background: #fff;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .step-card {
+            text-align: center;
+            padding: 36px 24px;
+            border: 1px solid #eee;
+            border-radius: 14px;
+            position: relative;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .step-card:hover { box-shadow: 0 10px 40px rgba(126,190,197,0.2); transform: translateY(-6px); }
+        .step-num {
+            width: 56px; height: 56px;
+            background: #7EBEC5;
+            color: #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        .step-icon { font-size: 1.8rem; color: #7EBEC5; margin-bottom: 12px; display: block; }
+        .step-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .step-card p { font-size: 0.9rem; color: #777; line-height: 1.6; }
+
+        /* ====== CTA ====== */
+        .cta-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #7EBEC5 0%, #5ea8b0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            top: -200px; right: -150px;
+        }
+        .cta-inner { position: relative; z-index: 1; text-align: center; }
+        .cta-inner h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .cta-inner p { color: rgba(255,255,255,0.88); max-width: 600px; margin: 0 auto 36px; font-size: 1.05rem; }
+        .btn-cta {
+            padding: 16px 44px;
+            background: #fff;
+            color: #5ea8b0;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+        /* ====== АДРЕС ====== */
+        .address-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* ====== ВИДЕО-СЛАЙД В ГЕРОЕ ====== */
+        .hero-slide--video { background: #000; }
+        .hero-video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+        }
+
+        /* ====== СЕКЦИЯ ВИДЕО ====== */
+        .videos-section {
+            padding: 80px 20px;
+            background: #f5fbfc;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        @media(max-width: 700px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+        }
+
+        .video-card {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+            background: #111;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .video-card:hover { box-shadow: 0 14px 44px rgba(126,190,197,0.28); transform: translateY(-5px); }
+
+        /* Вертикальное соотношение 9:16 */
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: #000;
+            overflow: hidden;
+        }
+        .video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
+
+        /* Полноэкранный режим — сохраняем оригинальное соотношение 9:16 */
+        .video-wrap video:fullscreen            { object-fit: contain; background: #000; }
+        .video-wrap video:-webkit-full-screen   { object-fit: contain; background: #000; }
+        .video-wrap video:-moz-full-screen      { object-fit: contain; background: #000; }
+        .video-wrap video:-ms-fullscreen        { object-fit: contain; background: #000; }
+        .video-play-btn {
+            position: absolute;
+            inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .video-play-btn:hover { background: rgba(0,0,0,0.2); }
+        .video-play-btn i {
+            width: 64px; height: 64px;
+            background: #7EBEC5;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            color: #fff;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .video-play-btn:hover i { transform: scale(1.1); background: #5ea8b0; }
+        .video-play-btn.gone { display: none; }
+
+        .video-caption {
+            padding: 12px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #444;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ====== FOOTER ====== */
+        .footer-text { color: #ccc; }
+        .soc-btn {
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+            background: #444;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ccc;
+            margin-left: 8px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .soc-btn:hover { background: #7EBEC5; color: #fff; transform: translateY(-3px); }
+        .soc-btn img.img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+
+        /* Разделитель секций */
+        .section-divider {
+            width: 60px; height: 4px;
+            background: #7EBEC5;
+            border-radius: 2px;
+            margin: 0 auto 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================== ШАПКА ==================== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html" style="font-family:'Montserrat',sans-serif; font-size:1.4rem; font-weight:700; color:#7EBEC5;">
+                    Автовозофф.рф
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul style="display:flex; gap:25px; list-style:none;">
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                    <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== HERO СЛАЙДЕР ==================== -->
+
+
+
+    <div class="hero-slider" id="heroSlider">
+
+        <div class="hero-slide active" style="background-image: url('images/6ya55f7C.jpg');">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Автовозофф.рф</h1>
+                <p>Профессиональная перевозка автомобилей по всей России. Надёжно. Быстро. С гарантией.</p>
+                <div class="hero-btns">
+                    <a href="contacts.html" class="btn-hero-primary">Оставить заявку</a>
+                    <a href="#how-we-work" class="btn-hero-outline">Как мы работаем</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="hero-slide" style="background-image: url('images/IbOeymii.jpg');">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>GPS-отслеживание в реальном времени</h1>
+                <p>Следите за вашим автомобилем на каждом этапе маршрута. Фотоотчёт на каждом этапе перевозки.</p>
+                <div class="hero-btns">
+                    <a href="contacts.html" class="btn-hero-primary">Связаться с нами</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-slide hero-slide--video">
+            <video class="hero-video-bg" autoplay muted loop playsinline>
+                <source src="videos/video1.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Владивосток → Москва</h1>
+                <p>Перевозим автомобили из любой точки России. Собственный парк автовозов, охраняемые стоянки.</p>
+                <div class="hero-btns">
+                    <a href="contacts.html" class="btn-hero-primary">Оставить заявку</a>
+                    <a href="#videos" class="btn-hero-outline">Смотреть видео</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <button class="slider-arrow prev" id="sliderPrev" aria-label="Назад">
+            <i class="ti ti-chevron-left"></i>
+        </button>
+        <button class="slider-arrow next" id="sliderNext" aria-label="Вперёд">
+            <i class="ti ti-chevron-right"></i>
+        </button>
+
+        <div class="slider-dots" id="sliderDots">
+            <button class="slider-dot active" data-slide="0"></button>
+            <button class="slider-dot" data-slide="1"></button>
+            <button class="slider-dot" data-slide="2"></button>
+
+        </div>
+    </div>
+
+    <!-- ==================== СТАТИСТИКА ==================== -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item anim-fade-up">
+                <div class="stat-num" data-count="5000">0</div>
+                <div class="stat-label">автомобилей перевезено</div>
+            </div>
+            <div class="stat-item anim-fade-up delay-1">
+                <div class="stat-num" data-count="15">0</div>
+                <div class="stat-label">минут — время ответа</div>
+            </div>
+            <div class="stat-item anim-fade-up delay-2">
+                <div class="stat-num" data-count="20">0</div>
+                <div class="stat-label">городов со стоянками</div>
+            </div>
+            <div class="stat-item anim-fade-up delay-3">
+                <div class="stat-num" data-count="70">0</div>
+                <div class="stat-label">тыс. руб. — от этой суммы</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ИНФОРМАЦИЯ И ПРЕИМУЩЕСТВА ==================== -->
+    <section class="info-section">
+        <div class="section-title anim-fade-up">О компании</div>
+        <div class="section-divider anim-fade-up delay-1"></div>
+        <p class="section-subtitle anim-fade-up delay-2">Доставка автомобилей автовозами по всей России</p>
+
+        <div class="info-layout">
+            <div class="info-image-wrap anim-slide-l">
+                <img src="images/img6.jpg" alt="Автовоз с автомобилями" />
+                <div class="info-image-badge">
+                    <i class="ti ti-shield-check" style="margin-right:6px; vertical-align:-2px;"></i>
+                    Страхование включено
+                </div>
+            </div>
+
+            <div class="anim-slide-r">
+                <h3 style="font-family:'Montserrat',sans-serif; font-size:1.4rem; font-weight:700; color:#222; margin-bottom:24px;">
+                    Наши преимущества
+                </h3>
+                <ul class="advantages-list">
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-truck"></i></div>
+                        <div class="adv-text">
+                            <strong>Личный парк автовозов</strong>
+                            <span>Работаем без посредников — только своя техника</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-file-description"></i></div>
+                        <div class="adv-text">
+                            <strong>Договор и акт приёма</strong>
+                            <span>Оформляем все документы, работаем с НДС</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-camera"></i></div>
+                        <div class="adv-text">
+                            <strong>Фотоотчёт на каждом этапе</strong>
+                            <span>Видите состояние авто на всём маршруте</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-headset"></i></div>
+                        <div class="adv-text">
+                            <strong>Связь 24/7</strong>
+                            <span>Всегда на связи — в любое время суток</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-map-pin"></i></div>
+                        <div class="adv-text">
+                            <strong>Охраняемые стоянки</strong>
+                            <span>Владивосток, Иркутск, Новосибирск, Москва и другие</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-location"></i></div>
+                        <div class="adv-text">
+                            <strong>GPS-отслеживание</strong>
+                            <span>Знайте, где ваш автомобиль в реальном времени</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-shield"></i></div>
+                        <div class="adv-text">
+                            <strong>Страхование автомобиля</strong>
+                            <span>Полная защита на время перевозки</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="adv-icon"><i class="ti ti-currency-rubel"></i></div>
+                        <div class="adv-text">
+                            <strong>Оплата частями</strong>
+                            <span>Можете оплатить частями</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ГАЛЕРЕЯ ==================== -->
+    <section class="gallery-section">
+        <div class="section-title anim-fade-up" style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:700; text-align:center; color:#222; margin-bottom:12px;">Наши работы</div>
+        <div class="section-divider anim-fade-up delay-1"></div>
+        <p class="section-subtitle anim-fade-up delay-2" style="text-align:center; color:#666; font-size:1.05rem; margin-bottom:48px;">Реальные перевозки нашими автовозами</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item tall anim-scale" onclick="openLightbox('images/img1.jpg')">
+                <img src="images/img1.jpg" alt="Автовоз ночью" />
+                <div class="gallery-overlay"><span>Ночная перевозка</span></div>
+            </div>
+            <div class="gallery-item anim-scale delay-1" onclick="openLightbox('images/img4.jpg')">
+                <img src="images/img4.jpg" alt="Загрузка автомобилей" />
+                <div class="gallery-overlay"><span>Загрузка транспорта</span></div>
+            </div>
+            <div class="gallery-item anim-scale delay-2" onclick="openLightbox('images/img8.jpg')">
+                <img src="images/img8.jpg" alt="Автовоз зимой" />
+                <div class="gallery-overlay"><span>Перевозка в любую погоду</span></div>
+            </div>
+            <div class="gallery-item anim-scale delay-3" onclick="openLightbox('images/img5.jpg')">
+                <img src="images/img5.jpg" alt="Автовоз зимой" />
+                <div class="gallery-overlay"><span>Зимний маршрут</span></div>
+            </div>
+            <div class="gallery-item anim-scale delay-4" onclick="openLightbox('images/img2.jpg')">
+                <img src="images/img2.jpg" alt="Автовоз днём" />
+                <div class="gallery-overlay"><span>Дневной рейс</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Лайтбокс -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="ti ti-x"></i></button>
+        <img id="lightboxImg" src="" alt="" />
+    </div>
+
+    <!-- ==================== ВИДЕО ==================== -->
+    <section class="videos-section" id="videos">
+        <div class="section-title anim-fade-up" style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:700; text-align:center; color:#222; margin-bottom:12px;">Смотрите, как мы работаем</div>
+        <div class="section-divider anim-fade-up delay-1"></div>
+        <p class="section-subtitle anim-fade-up delay-2" style="text-align:center; color:#666; font-size:1.05rem; margin-bottom:48px;">Реальная съёмка наших рейсов — загрузка и доставка автомобилей</p>
+
+        <div class="videos-grid">
+
+            <div class="video-card anim-scale">
+                <div class="video-wrap">
+                    <video controls preload="metadata" playsinline>
+                        <source src="videos/video1.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-play-btn" onclick="playVideo(this)">
+                        <i class="ti ti-player-play"></i>
+                    </div>
+                </div>
+                <div class="video-caption">
+                    <i class="ti ti-parking" style="color:#7EBEC5;"></i>
+                    Наша стоянка
+                </div>
+            </div>
+
+            <div class="video-card anim-scale delay-2">
+                <div class="video-wrap">
+                    <video controls preload="metadata" playsinline>
+                        <source src="videos/video2.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-play-btn" onclick="playVideo(this)">
+                        <i class="ti ti-player-play"></i>
+                    </div>
+                </div>
+                <div class="video-caption">
+                    <i class="ti ti-truck" style="color:#7EBEC5;"></i>
+                    Загрузка автомобилей
+                </div>
+            </div>
+
+            <div class="video-card anim-scale delay-4">
+                <div class="video-wrap">
+                    <video controls preload="metadata" playsinline>
+                        <source src="videos/video3.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-play-btn" onclick="playVideo(this)">
+                        <i class="ti ti-player-play"></i>
+                    </div>
+                </div>
+                <div class="video-caption">
+                    <i class="ti ti-route" style="color:#7EBEC5;"></i>
+                    Рейс по маршруту
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="steps-section" id="how-we-work">
+        <div class="section-title anim-fade-up" style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:700; text-align:center; color:#222; margin-bottom:12px;">Как мы работаем</div>
+        <div class="section-divider anim-fade-up delay-1"></div>
+        <p class="section-subtitle anim-fade-up delay-2" style="text-align:center; color:#666; font-size:1.05rem; margin-bottom:48px;">Простой и понятный процесс перевозки</p>
+
+        <div class="steps-grid">
+            <div class="step-card anim-fade-up">
+                <div class="step-num">1</div>
+                <i class="ti ti-phone step-icon"></i>
+                <h4>Заявка</h4>
+                <p>Позвоните или напишите нам — обсудим маршрут и рассчитаем стоимость за 15 минут</p>
+            </div>
+            <div class="step-card anim-fade-up delay-1">
+                <div class="step-num">2</div>
+                <i class="ti ti-file-description step-icon"></i>
+                <h4>Договор</h4>
+                <p>Заключаем договор, составляем акт приёма автомобиля и фиксируем его состояние</p>
+            </div>
+            <div class="step-card anim-fade-up delay-2">
+                <div class="step-num">3</div>
+                <i class="ti ti-truck step-icon"></i>
+                <h4>Перевозка</h4>
+                <p>Загружаем автомобиль на автовоз — GPS-трекинг и фотоотчёт на каждом этапе</p>
+            </div>
+            <div class="step-card anim-fade-up delay-3">
+                <div class="step-num">4</div>
+                <i class="ti ti-circle-check step-icon"></i>
+                <h4>Доставка</h4>
+                <p>Привозим ваш автомобиль в целости и сохранности — принимаете с актом в руках</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="cta-inner anim-fade-up">
+            <div class="address-block">
+                <i class="ti ti-map-pin"></i>
+                <span>Снеговая улица, 48Ас2</span>
+            </div>
+            <h2>Готовы отправить автомобиль?</h2>
+            <p>Оставьте заявку — свяжемся в течение 15 минут для уточнения деталей и расчёта стоимости.</p>
+            <a href="contacts.html" class="btn-cta">Связаться с нами</a>
+        </div>
+    </section>
+
+    <!-- ==================== ФУТЕР ==================== -->
+    <footer>
+        <div class="container" style="padding: 0 20px;">
+            <div class="footer-content">
+                <div>
+                    <p class="footer-text">&copy; 2026 Автовозофф.рф</p>
+                    <p class="footer-text">Перевозка автомобилей по России</p>
+                </div>
+                <div class="footer-menu">
+                    <a class="footer-text" href="index.html">Главная</a>
+                    <a class="footer-text" href="contacts.html">Контакты</a>
+                    <a class="footer-text" href="">Услуги и цены</a>
+                </div>
+                <div class="social-links" style="text-align:right;">
+                    <a href="https://t.me/avtovozofff" title="Telegram" class="soc-btn">
+                        <img class="img" src="images/images.png">
+                    </a>
+                    <a href="https://www.avito.ru/user/ca86ffd18bb47ce152d6a563b7fbc708/profile/all?id=8036827566&iid=8036827566&page_from=from_item_messenger&src=messenger&sellerId=ca86ffd18bb47ce152d6a563b7fbc708" title="Avito" class="soc-btn">
+                        <img class="img" src="images/4b65cda85454c9849f25215c458823af.jpeg">
+                    </a>
+                        <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
+                        <img class="img" src="images/2gis.webp">
+                    </a>
+                        <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
+                        <img class="img" src="images/Max.jpg">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== СКРИПТЫ ==================== -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        /* ---- Слайдер ---- */
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots   = document.querySelectorAll('.slider-dot');
+        let current  = 0;
+        let timer;
+
+        function goToSlide(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function nextSlide() { goToSlide(current + 1); }
+        function prevSlide() { goToSlide(current - 1); }
+
+        function startAuto() { timer = setInterval(nextSlide, 5000); }
+        function resetAuto()  { clearInterval(timer); startAuto(); }
+
+        document.getElementById('sliderNext').addEventListener('click', () => { nextSlide(); resetAuto(); });
+        document.getElementById('sliderPrev').addEventListener('click', () => { prevSlide(); resetAuto(); });
+        dots.forEach(dot => dot.addEventListener('click', () => { goToSlide(+dot.dataset.slide); resetAuto(); }));
+        startAuto();
+
+        /* ---- Scroll-анимации ---- */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.anim-fade-up, .anim-slide-l, .anim-slide-r, .anim-scale, .anim-fade').forEach(el => observer.observe(el));
+
+        /* ---- Счётчики ---- */
+        function animateCounter(el) {
+            const target = +el.dataset.count;
+            let current = 0;
+            const step = Math.ceil(target / 50);
+            const interval = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = current + (target >= 100 ? '+' : '');
+                if (current >= target) clearInterval(interval);
+            }, 30);
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.querySelectorAll('.stat-num[data-count]').forEach(animateCounter);
+                    statsObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        /* ---- Лайтбокс ---- */
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(e) {
+            if (!e || e.target !== document.getElementById('lightboxImg')) {
+                document.getElementById('lightbox').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        /* ---- Воспроизведение видео по клику на оверлей ---- */
+        function playVideo(btn) {
+            const video = btn.closest('.video-wrap').querySelector('video');
+            btn.classList.add('gone');
+            video.play();
+        }
+
+        /* ---- Полноэкранный режим: сохраняем оригинальное соотношение сторон ---- */
+        document.querySelectorAll('.video-wrap video').forEach(video => {
+
+            /* Когда входим / выходим из полноэкранного режима */
+            const fsHandler = () => {
+                const isFs = !!(
+                    document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement ||
+                    document.msFullscreenElement
+                );
+                /* В полноэкранном режиме contain = оригинальное соотношение,
+                   вне — cover, чтобы карточка выглядела красиво */
+                video.style.objectFit = isFs ? 'contain' : 'cover';
+            };
+
+            document.addEventListener('fullscreenchange',       fsHandler);
+            document.addEventListener('webkitfullscreenchange', fsHandler);
+            document.addEventListener('mozfullscreenchange',    fsHandler);
+            document.addEventListener('MSFullscreenChange',     fsHandler);
+        });
+    </script>
+</body>
+</html>
