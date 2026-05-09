@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — Автовозофф.рф</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+
+    <!-- ==================== ШАПКА ==================== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html" style="font-family:'Montserrat',sans-serif; font-size:1.4rem; font-weight:700; color:#7EBEC5;">
+                    Автовозофф.рф
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul style="display:flex; gap:25px; list-style:none;">
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                    <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>>
+
+    <!-- ==================== КАРТА ==================== -->
+    <div class="map-wrapper">
+        Где нас найти
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5f5c1329c2cfc962fd9d1c146cf9c6920fb867e1cdca7e4452af27cbab633270&amp;width=100%25&amp;height=550&amp;lang=ru_RU&amp;scroll=true"></script>
+    </div>
+
+    <!-- ==================== КОНТАКТЫ ==================== -->
+    <section class="contacts-section">
+        <div class="contacts-inner">
+
+            <div class="contacts-header fade-up">
+                <h2>Свяжитесь с нами</h2>
+                <p>Перевезём ваш автомобиль быстро и надёжно — напишите или позвоните нам</p>
+            </div>
+
+            <div class="contacts-grid">
+
+                <!-- Левая колонка: инфо -->
+                <div class="contact-info-card slide-left">
+                    <h3>Контактная информация</h3>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ti ti-phone"></i></div>
+                        <div>
+                            <span class="contact-label">Телефон</span>
+                            <a href="tel:+79642873777" class="contact-value">+7 964 287 3777</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ti ti-brand-telegram"></i></div>
+                        <div>
+                            <span class="contact-label">Telegram</span>
+                            <a href="https://t.me/avtovozofff" class="contact-value">@avtovozofff</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ti ti-map-pin"></i></div>
+                        <div>
+                            <span class="contact-label">Офис</span>
+                            <span class="contact-value">Снеговая улица, 48Ас2</span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="work-hours">
+                        <h4><i class="ti ti-clock"></i> Режим работы</h4>
+                        <div class="hours-row"><span>Понедельник – Воскресенье</span><span>8:00 – 20:00</span></div>
+                    </div>
+
+                    <div class="social-block">
+                        <span class="contact-label">Мы на других платформах:</span>
+                        <div class="social-icons">
+                            <a href="https://t.me/avtovozofff" title="Telegram" class="soc-btn">
+                                <img src="images/images.png">
+                            </a>
+                            <a href="https://www.avito.ru/user/ca86ffd18bb47ce152d6a563b7fbc708/profile/all?id=8036827566&iid=8036827566&page_from=from_item_messenger&src=messenger&sellerId=ca86ffd18bb47ce152d6a563b7fbc708" title="Avito" class="soc-btn">
+                                <img src="images/4b65cda85454c9849f25215c458823af.jpeg">
+                            </a>
+                        <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
+                        <img class="img" src="images/2gis.webp">
+                        <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
+                        <img class="img" src="images/Max.jpg">
+                    </a>
+                    </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Правая колонка: форма -->
+                <div class="contact-form-card slide-right">
+                    <h3>Оставить заявку</h3>
+
+                    <div id="formInner">
+                        <div class="form-group">
+                            <label for="fname">Ваше имя *</label>
+                            <input type="text" id="fname" name="name" placeholder="Иван Иванов" autocomplete="name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fphone">Телефон *</label>
+                            <input type="tel" id="fphone" name="phone" placeholder="+7 (999) 000-00-00" autocomplete="tel" />
+                        </div>
+                        <div class="form-group">
+                            <label for="femail">Email</label>
+                            <input type="email" id="femail" name="email" placeholder="mail@example.ru" autocomplete="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="froute">Маршрут перевозки</label>
+                            <input type="text" id="froute" name="route" placeholder="Откуда → Куда" />
+                        </div>
+                        <div class="form-group">
+                            <label for="fmsg">Ваш вопрос или пожелания</label>
+                            <textarea id="fmsg" name="message" rows="4" placeholder="Расскажите о вашем автомобиле, сроках и любых нюансах..."></textarea>
+                        </div>
+                        <p class="form-hint">* — обязательные поля.</p>
+                        <button class="btn btn-send" id="submitBtn" onclick="submitContactForm()">
+                            Отправить заявку
+                        </button>
+
+                        <!-- Блок ошибки отправки (скрыт по умолчанию) -->
+                        <div id="sendError" class="hidden" style="
+                            margin-top: 14px;
+                            padding: 12px 16px;
+                            background: #fff0f0;
+                            border: 1px solid #f5c6c6;
+                            border-radius: 8px;
+                            color: #c0392b;
+                            font-size: 0.9rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        ">
+                            <i class="ti ti-alert-circle"></i>
+                            <span>Не удалось отправить заявку. Позвоните нам напрямую: <a href="tel:+79642873777" style="color:#c0392b; font-weight:600;">+7 964 287 3777</a></span>
+                        </div>
+                    </div>
+
+                    <!-- Сообщение об успехе -->
+                    <div class="form-success hidden" id="successMsg">
+                        <i class="ti ti-circle-check"></i>
+                        <h4>Заявка отправлена!</h4>
+                        <p>Мы скоро свяжемся с вами. Спасибо!</p>
+                        <button class="btn" onclick="resetForm()" style="margin-top:16px; background:#7EBEC5;">
+                            Отправить ещё
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ФУТЕР ==================== -->
+    <footer>
+        <div class="container" style="padding: 0 20px;">
+            <div class="footer-content">
+                <div>
+                    <p class="footer-text">&copy; 2026 Автовозофф.рф</p>
+                    <p class="footer-text">Перевозка автомобилей по России</p>
+                </div>
+                <div class="footer-menu">
+                    <a class="footer-text" href="index.html">Главная</a>
+                    <a class="footer-text" href="contacts.html">Контакты</a>
+                    <a class="footer-text" href="">Услуги и цены</a>
+                </div>
+                <div class="social-links" style="text-align:right;">
+                    <a href="https://t.me/avtovozofff" title="Telegram" class="soc-btn">
+                        <img class="img" src="images/images.png">
+                    </a>
+                    <a href="https://www.avito.ru/user/ca86ffd18bb47ce152d6a563b7fbc708/profile/all?id=8036827566&iid=8036827566&page_from=from_item_messenger&src=messenger&sellerId=ca86ffd18bb47ce152d6a563b7fbc708" title="Avito" class="soc-btn">
+                        <img class="img" src="images/4b65cda85454c9849f25215c458823af.jpeg">
+                    </a>
+                        <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
+                        <img class="img" src="images/2gis.webp">
+                    </a>
+                        <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
+                        <img class="img" src="images/Max.jpg">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        const BOT_TOKEN = '8781068717:AAEdXFQbeUjHG7v4i5LsK7Wg09zTNeCfcsI';
+        const CHAT_ID   = '6155287666';
+
+        /* ---- Анимация появления при скролле ---- */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => observer.observe(el));
+
+        /* ---- Отправка формы в Telegram ---- */
+        async function submitContactForm() {
+            const nameEl  = document.getElementById('fname');
+            const phoneEl = document.getElementById('fphone');
+            const emailEl = document.getElementById('femail');
+            const routeEl = document.getElementById('froute');
+            const msgEl   = document.getElementById('fmsg');
+            const btn     = document.getElementById('submitBtn');
+            const errBox  = document.getElementById('sendError');
+
+            /* Сброс ошибок */
+            [nameEl, phoneEl].forEach(el => el.classList.remove('input-error'));
+            errBox.classList.add('hidden');
+
+            /* Валидация */
+            let valid = true;
+            if (!nameEl.value.trim())  { nameEl.classList.add('input-error');  valid = false; }
+            if (!phoneEl.value.trim()) { phoneEl.classList.add('input-error'); valid = false; }
+            if (!valid) return;
+
+            /* Состояние загрузки */
+            btn.textContent = 'Отправляем...';
+            btn.disabled = true;
+
+            /* Формируем красивое сообщение */
+            const lines = [
+                '🚗 <b>Новая заявка с сайта Автовозофф.рф</b>',
+                '',
+                `👤 <b>Имя:</b> ${escHtml(nameEl.value.trim())}`,
+                `📞 <b>Телефон:</b> ${escHtml(phoneEl.value.trim())}`,
+            ];
+            if (emailEl.value.trim()) lines.push(`✉️ <b>Email:</b> ${escHtml(emailEl.value.trim())}`);
+            if (routeEl.value.trim()) lines.push(`🗺 <b>Маршрут:</b> ${escHtml(routeEl.value.trim())}`);
+            if (msgEl.value.trim())   lines.push(`💬 <b>Сообщение:</b>\n${escHtml(msgEl.value.trim())}`);
+
+            const text = lines.join('\n');
+
+            try {
+                const res = await fetch(
+                    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id:    CHAT_ID,
+                            text:       text,
+                            parse_mode: 'HTML',
+                        }),
+                    }
+                );
+
+                const data = await res.json();
+
+                if (data.ok) {
+                    /* Успех */
+                    document.getElementById('formInner').classList.add('hidden');
+                    document.getElementById('successMsg').classList.remove('hidden');
+                } else {
+                    /* API вернул ошибку */
+                    console.error('Telegram API error:', data);
+                    showError(btn);
+                }
+            } catch (err) {
+                /* Сетевая ошибка */
+                console.error('Network error:', err);
+                showError(btn);
+            }
+        }
+
+        function showError(btn) {
+            btn.textContent = 'Отправить заявку';
+            btn.disabled = false;
+            document.getElementById('sendError').classList.remove('hidden');
+        }
+
+        /* Экранируем HTML-спецсимволы чтобы не сломать parse_mode */
+        function escHtml(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function resetForm() {
+            document.getElementById('formInner').classList.remove('hidden');
+            document.getElementById('successMsg').classList.add('hidden');
+            document.getElementById('sendError').classList.add('hidden');
+            ['fname','fphone','femail','froute','fmsg'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = 'Отправить заявку';
+            btn.disabled = false;
+        }
+    </script>
+
+</body>
+</html>
