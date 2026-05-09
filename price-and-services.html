@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги и цены — Автовозофф.рф</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+    <style>
+        /* === АНИМАЦИИ === */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes slideFromLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.93); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .anim-up    { opacity: 0; }
+        .anim-left  { opacity: 0; }
+        .anim-right { opacity: 0; }
+        .anim-scale { opacity: 0; }
+        .anim-fade  { opacity: 0; }
+
+        .anim-up.visible    { animation: fadeUp        0.7s ease forwards; }
+        .anim-left.visible  { animation: slideFromLeft  0.7s ease forwards; }
+        .anim-right.visible { animation: slideFromRight 0.7s ease forwards; }
+        .anim-scale.visible { animation: scaleIn        0.6s ease forwards; }
+        .anim-fade.visible  { animation: fadeIn         0.8s ease forwards; }
+
+        .d1 { animation-delay: 0.05s !important; }
+        .d2 { animation-delay: 0.12s !important; }
+        .d3 { animation-delay: 0.19s !important; }
+        .d4 { animation-delay: 0.26s !important; }
+        .d5 { animation-delay: 0.33s !important; }
+        .d6 { animation-delay: 0.40s !important; }
+        .d7 { animation-delay: 0.47s !important; }
+        .d8 { animation-delay: 0.54s !important; }
+
+        /* === ГЕРОЙ === */
+        .services-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                        url('images/img2.jpg') center/cover no-repeat;
+        }
+        .services-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+        .services-hero-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+        .services-hero-content p {
+            font-size: 1.15rem;
+            max-width: 580px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #7EBEC5;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* === МАРШРУТ-ЛИНИЯ === */
+        .route-line-section {
+            background: #f5fbfc;
+            padding: 56px 20px;
+        }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .section-divider {
+            width: 60px; height: 4px;
+            background: #7EBEC5;
+            border-radius: 2px;
+            margin: 0 auto 16px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 50px;
+        }
+
+        /* Вертикальная линия маршрута */
+        .route-timeline {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .route-timeline::before {
+            content: '';
+            position: absolute;
+            left: calc(50% - 1px);
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7EBEC5, #5ea8b0);
+        }
+        @media(max-width: 650px) {
+            .route-timeline::before { left: 28px; }
+        }
+
+        .route-item {
+            display: grid;
+            grid-template-columns: 1fr 56px 1fr;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 0;
+        }
+        @media(max-width: 650px) {
+            .route-item { grid-template-columns: 56px 1fr; }
+            .route-item .route-left { display: none; }
+        }
+
+        /* Чётные — картинка справа, нечётные — слева */
+        .route-left  { text-align: right; padding-right: 30px; }
+        .route-right { text-align: left;  padding-left: 30px; }
+
+        .route-dot-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .route-dot {
+            width: 20px; height: 20px;
+            background: #7EBEC5;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px #7EBEC5;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+        .route-connector {
+            width: 2px;
+            flex: 1;
+            min-height: 40px;
+            background: transparent;
+        }
+
+        /* Карточка города */
+        .city-card {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #e8f5f6;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: box-shadow 0.3s, transform 0.3s;
+            margin: 16px 0;
+        }
+        .city-card:hover {
+            box-shadow: 0 12px 40px rgba(126,190,197,0.22);
+            transform: translateY(-4px);
+        }
+        .city-card-img {
+            width: 100%; height: 180px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .city-card:hover .city-card-img { transform: scale(1.04); }
+        .city-card-img-wrap {
+            overflow: hidden;
+        }
+        .city-card-body {
+            padding: 18px 20px;
+        }
+        .city-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .city-distance {
+            font-size: 0.82rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .city-price {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .city-price-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .city-price-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #7EBEC5;
+        }
+        .city-price-unit {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .origin-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e8f5f6;
+            color: #5ea8b0;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Точка отправления */
+        .origin-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .origin-circle {
+            width: 52px; height: 52px;
+            background: #7EBEC5;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 18px rgba(126,190,197,0.4);
+            margin-bottom: 8px;
+        }
+        .origin-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #5ea8b0;
+            text-align: center;
+        }
+
+        /* === БЛОК ПРЕИМУЩЕСТВ === */
+        .why-section {
+            padding: 76px 20px;
+            background: #fff;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .why-card {
+            padding: 28px 24px;
+            border: 1px solid #eee;
+            border-radius: 14px;
+            text-align: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .why-card:hover {
+            box-shadow: 0 10px 36px rgba(126,190,197,0.18);
+            transform: translateY(-5px);
+        }
+        .why-icon {
+            width: 56px; height: 56px;
+            background: #e8f5f6;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 1.4rem;
+            color: #7EBEC5;
+            transition: background 0.3s, color 0.3s;
+        }
+        .why-card:hover .why-icon { background: #7EBEC5; color: #fff; }
+        .why-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .why-card p { font-size: 0.88rem; color: #777; line-height: 1.6; }
+
+        /* === CTA === */
+        .cta-section {
+            padding: 76px 20px;
+            background: linear-gradient(135deg, #7EBEC5 0%, #5ea8b0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            top: -200px; right: -150px;
+        }
+        .cta-inner { position: relative; z-index: 1; text-align: center; }
+        .cta-inner h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+        .cta-inner p {
+            color: rgba(255,255,255,0.88);
+            max-width: 560px;
+            margin: 0 auto 32px;
+            font-size: 1.05rem;
+        }
+        .btn-cta {
+            padding: 16px 44px;
+            background: #fff;
+            color: #5ea8b0;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+        .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+        /* === FOOTER === */
+        .footer-text { color: #ccc; }
+        .soc-btn {
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+            background: #444;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ccc;
+            margin-left: 8px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .soc-btn:hover { background: #7EBEC5; color: #fff; transform: translateY(-3px); }
+        .soc-btn img.img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА ==================== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html" style="font-family:'Montserrat',sans-serif; font-size:1.4rem; font-weight:700; color:#7EBEC5;">
+                    Автовозофф.рф
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul style="display:flex; gap:25px; list-style:none;">
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                    <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== ГЕРОЙ ==================== -->
+    <div class="services-hero">
+        <div class="services-hero-bg"></div>
+        <div class="services-hero-content">
+            <h1>Услуги и цены</h1>
+            <p>Перевозка автомобилей из Владивостока по всей России. Собственный парк — без посредников.</p>
+            <div style="margin-top:100px ;" class="hero-badge">
+                <i class="ti ti-map-pin"></i>
+                Отправление: Владивосток
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== МАРШРУТЫ И ЦЕНЫ ==================== -->
+    <section class="route-line-section">
+
+        <div style ="color: white;" class="section-title anim-up">Маршруты и цены</div>
+        <div class="section-divider anim-up d1"></div>
+        <p style ="color: rgb(224, 224, 224);" class="section-sub anim-up d2">Стоимость перевозки одного автомобиля из Владивостока, тыс. руб.</p>
+        
+        <div class="route-timeline">
+
+            <!-- Точка отправления -->
+            
+            <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:8px;" class="anim-up">
+                <div class="origin-circle">
+                    <i class="ti ti-anchor"></i>
+                </div>
+
+                <div style="width:2px; height:30px; background:#7EBEC5; margin-top:8px;"></div>
+            </div>
+
+            <!-- 1. Иркутск -->
+            <div class="route-item">
+                <div class="route-left anim-left d1">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img1.jpg" alt="Иркутск" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Иркутск
+                            </div>
+                            <div class="city-distance">~4 200 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">75</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right" style="padding-left:30px;">
+                    <div class="origin-tag"><i class="ti ti-arrow-right"></i> ближайший</div>
+                </div>
+            </div>
+
+            <!-- 2. Новосибирск -->
+            <div class="route-item">
+                <div class="route-left" style="text-align:right; padding-right:30px;">
+                    <div class="origin-tag anim-right d2"><i class="ti ti-clock"></i> ~7 суток</div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right anim-right d2">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img2.jpg" alt="Новосибирск" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Новосибирск
+                            </div>
+                            <div class="city-distance">~5 800 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">100</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Омск -->
+            <div class="route-item">
+                <div class="route-left anim-left d3">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img3.jpg" alt="Омск" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Омск
+                            </div>
+                            <div class="city-distance">~6 500 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">120</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right" style="padding-left:30px;">
+                    <div class="origin-tag anim-right d3"><i class="ti ti-clock"></i> ~9 суток</div>
+                </div>
+            </div>
+
+            <!-- 4. Челябинск -->
+            <div class="route-item">
+                <div class="route-left" style="text-align:right; padding-right:30px;">
+                    <div class="origin-tag anim-left d4"><i class="ti ti-clock"></i> ~10 суток</div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right anim-right d4">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img4.jpg" alt="Челябинск" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Челябинск
+                            </div>
+                            <div class="city-distance">~7 500 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">140</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Уфа -->
+            <div class="route-item">
+                <div class="route-left anim-left d5">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img5.jpg" alt="Уфа" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Уфа
+                            </div>
+                            <div class="city-distance">~7 800 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">150</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right" style="padding-left:30px;">
+                    <div class="origin-tag anim-right d5"><i class="ti ti-clock"></i> ~11 суток</div>
+                </div>
+            </div>
+
+            <!-- 6. Москва -->
+            <div class="route-item">
+                <div class="route-left" style="text-align:right; padding-right:30px;">
+                    <div class="origin-tag anim-left d6"><i class="ti ti-star" style="color:#5ea8b0;"></i> популярный</div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot" style="background:#5ea8b0; box-shadow: 0 0 0 3px #5ea8b0; width:26px; height:26px;"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right anim-right d6">
+                    <div class="city-card" style="border-color:#7EBEC5; border-width:2px;">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img6.jpg" alt="Москва" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div style="display:inline-flex; align-items:center; gap:5px; background:#e8f5f6; color:#5ea8b0; padding:3px 10px; border-radius:12px; font-size:0.75rem; font-weight:700; margin-bottom:8px; font-family:'Montserrat',sans-serif;">
+                                <i class="ti ti-star" style="font-size:0.75rem;"></i> Популярный маршрут
+                            </div>
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Москва
+                            </div>
+                            <div class="city-distance">~9 000 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">160</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Краснодар -->
+            <div class="route-item">
+                <div class="route-left anim-left d7">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img7.jpg" alt="Краснодар" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Краснодар
+                            </div>
+                            <div class="city-distance">~9 700 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">170</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                    <div class="route-connector"></div>
+                </div>
+                <div class="route-right" style="padding-left:30px;">
+                    <div class="origin-tag anim-right d7"><i class="ti ti-clock"></i> ~14 суток</div>
+                </div>
+            </div>
+
+            <!-- 8. Санкт-Петербург -->
+            <div class="route-item">
+                <div class="route-left" style="text-align:right; padding-right:30px;">
+                    <div class="origin-tag anim-left d8"><i class="ti ti-clock"></i> ~14 суток</div>
+                </div>
+                <div class="route-dot-wrap">
+                    <div class="route-dot"></div>
+                </div>
+                <div class="route-right anim-right d8">
+                    <div class="city-card">
+                        <div class="city-card-img-wrap">
+                            <img src="images/img8.jpg" alt="Санкт-Петербург" class="city-card-img" />
+                        </div>
+                        <div class="city-card-body">
+                            <div class="city-name">
+                                <i class="ti ti-building-skyscraper" style="color:#7EBEC5; font-size:1rem;"></i>
+                                Санкт-Петербург
+                            </div>
+                            <div class="city-distance">~10 000 км от Владивостока</div>
+                            <div class="city-price">
+                                <span class="city-price-label">от</span>
+                                <span class="city-price-num">170</span>
+                                <span class="city-price-unit">тыс. ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /route-timeline -->
+
+        <!-- Сноска -->
+        <p class="anim-up" style="text-align:center; color:#999; font-size:0.85rem; margin-top:40px; max-width:600px; margin-left:auto; margin-right:auto;">
+            <i class="ti ti-info-circle" style="vertical-align:-2px; margin-right:4px;"></i>
+            Цены указаны ориентировочно и зависят от типа, габаритов и состояния автомобиля. Точную стоимость уточняйте у менеджера.
+        </p>
+
+    </section>
+
+    <!-- ==================== ПОЧЕМУ МЫ ==================== -->
+    <section class="why-section">
+        <div class="section-title anim-up">Почему выбирают нас</div>
+        <div class="section-divider anim-up d1"></div>
+        <p class="section-sub anim-up d2" style="margin-bottom:44px;">Работаем без посредников — только свои автовозы и своя команда</p>
+
+        <div class="why-grid">
+            <div class="why-card anim-scale d1">
+                <div class="why-icon"><i class="ti ti-file-description"></i></div>
+                <h4>Договор и акт</h4>
+                <p>Официально оформляем каждую перевозку. Работаем с НДС, наличными и переводом.</p>
+            </div>
+            <div class="why-card anim-scale d2">
+                <div class="why-icon"><i class="ti ti-shield-check"></i></div>
+                <h4>Страхование</h4>
+                <p>Каждый автомобиль застрахован на время перевозки. Ваш транспорт защищён.</p>
+            </div>
+            <div class="why-card anim-scale d3">
+                <div class="why-icon"><i class="ti ti-location"></i></div>
+                <h4>GPS-трекинг</h4>
+                <p>Отслеживайте местоположение вашего авто в реальном времени на всём маршруте.</p>
+            </div>
+            <div class="why-card anim-scale d4">
+                <div class="why-icon"><i class="ti ti-camera"></i></div>
+                <h4>Фотоотчёт</h4>
+                <p>Фиксируем состояние автомобиля при загрузке и выгрузке — никаких споров.</p>
+            </div>
+            <div class="why-card anim-scale d5">
+                <div class="why-icon"><i class="ti ti-headset"></i></div>
+                <h4>Связь 24/7</h4>
+                <p>Всегда на связи — ответим на любой вопрос в любое время суток.</p>
+            </div>
+            <div class="why-card anim-scale d6">
+                <div class="why-icon"><i class="ti ti-map-pin"></i></div>
+                <h4>Охраняемые стоянки</h4>
+                <p>Владивосток, Иркутск, Новосибирск, Москва и другие города — везде своя стоянка.</p>
+            </div>
+            <div class="why-card anim-scale d1">
+                <div class="why-icon"><i class="ti ti ti-truck"></i></div>
+                <h4>Личный парк автовозов</h4>
+                <p>Работаем без посредников — только своя техника</p>
+            </div>
+            <div class="why-card anim-scale d1">
+                <div class="why-icon"><i class="ti ti-currency-rubel"></i></div>
+                <h4>Оплата частями</h4>
+                <p>Можете оплатить частями</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="cta-inner anim-up">
+            <h2>Готовы отправить автомобиль?</h2>
+            <p>Оставьте заявку — перезвоним в течение 15 минут и рассчитаем точную стоимость для вашего маршрута.</p>
+            <a href="contacts.html" class="btn-cta">
+                <i class="ti ti-phone" style="margin-right:8px; vertical-align:-2px;"></i>
+                Связаться с нами
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ФУТЕР ==================== -->
+ <footer>
+        <div class="container" style="padding: 0 20px;">
+            <div class="footer-content">
+                <div>
+                    <p class="footer-text">&copy; 2026 Автовозофф.рф</p>
+                    <p class="footer-text">Перевозка автомобилей по России</p>
+                </div>
+                <div class="footer-menu">
+                    <a class="footer-text" href="index.html">Главная</a>
+                    <a class="footer-text" href="contacts.html">Контакты</a>
+                    <a class="footer-text" href="">Услуги и цены</a>
+                </div>
+                <div class="social-links" style="text-align:right;">
+                    <a href="https://t.me/avtovozofff" title="Telegram" class="soc-btn">
+                        <img class="img" src="images/images.png">
+                    </a>
+                    <a href="https://www.avito.ru/user/ca86ffd18bb47ce152d6a563b7fbc708/profile/all?id=8036827566&iid=8036827566&page_from=from_item_messenger&src=messenger&sellerId=ca86ffd18bb47ce152d6a563b7fbc708" title="Avito" class="soc-btn">
+                        <img class="img" src="images/4b65cda85454c9849f25215c458823af.jpeg">
+                    </a>
+                        <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
+                        <img class="img" src="images/2gis.webp">
+                    </a>
+                        <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
+                        <img class="img" src="images/Max.jpg">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        /* Scroll-анимации */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.10 });
+
+        document.querySelectorAll(
+            '.anim-up, .anim-left, .anim-right, .anim-scale, .anim-fade'
+        ).forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
