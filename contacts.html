@@ -192,11 +192,10 @@
         </div>
     </footer>
 
-    <script>
+<script>
 
-        const BOT_TOKEN = '8781068717:AAEdXFQbeUjHG7v4i5LsK7Wg09zTNeCfcsI';
-        const CHAT_ID   = '6155287666';
-
+        const WORKER_URL = 'https://ancient-smoke-04f7.gg6527025.workers.dev/';
+ 
         /* ---- Анимация появления при скролле ---- */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -206,10 +205,10 @@
                 }
             });
         }, { threshold: 0.15 });
-
+ 
         document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => observer.observe(el));
+ 
 
-        /* ---- Отправка формы в Telegram ---- */
         async function submitContactForm() {
             const nameEl  = document.getElementById('fname');
             const phoneEl = document.getElementById('fphone');
@@ -218,80 +217,55 @@
             const msgEl   = document.getElementById('fmsg');
             const btn     = document.getElementById('submitBtn');
             const errBox  = document.getElementById('sendError');
-
+ 
             /* Сброс ошибок */
             [nameEl, phoneEl].forEach(el => el.classList.remove('input-error'));
             errBox.classList.add('hidden');
-
+ 
             /* Валидация */
             let valid = true;
             if (!nameEl.value.trim())  { nameEl.classList.add('input-error');  valid = false; }
             if (!phoneEl.value.trim()) { phoneEl.classList.add('input-error'); valid = false; }
             if (!valid) return;
-
+ 
             /* Состояние загрузки */
             btn.textContent = 'Отправляем...';
             btn.disabled = true;
-
-            /* Формируем красивое сообщение */
-            const lines = [
-                '🚗 <b>Новая заявка с сайта Автовозофф.рф</b>',
-                '',
-                `👤 <b>Имя:</b> ${escHtml(nameEl.value.trim())}`,
-                `📞 <b>Телефон:</b> ${escHtml(phoneEl.value.trim())}`,
-            ];
-            if (emailEl.value.trim()) lines.push(`✉️ <b>Email:</b> ${escHtml(emailEl.value.trim())}`);
-            if (routeEl.value.trim()) lines.push(`🗺 <b>Маршрут:</b> ${escHtml(routeEl.value.trim())}`);
-            if (msgEl.value.trim())   lines.push(`💬 <b>Сообщение:</b>\n${escHtml(msgEl.value.trim())}`);
-
-            const text = lines.join('\n');
-
+ 
             try {
-                const res = await fetch(
-                    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id:    CHAT_ID,
-                            text:       text,
-                            parse_mode: 'HTML',
-                        }),
-                    }
-                );
-
+                const res = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name:    nameEl.value.trim(),
+                        phone:   phoneEl.value.trim(),
+                        email:   emailEl.value.trim(),
+                        route:   routeEl.value.trim(),
+                        message: msgEl.value.trim(),
+                    }),
+                });
+ 
                 const data = await res.json();
-
+ 
                 if (data.ok) {
-                    /* Успех */
                     document.getElementById('formInner').classList.add('hidden');
                     document.getElementById('successMsg').classList.remove('hidden');
                 } else {
-                    /* API вернул ошибку */
-                    console.error('Telegram API error:', data);
+                    console.error('Worker/Telegram error:', data);
                     showError(btn);
                 }
             } catch (err) {
-                /* Сетевая ошибка */
                 console.error('Network error:', err);
                 showError(btn);
             }
         }
-
+ 
         function showError(btn) {
             btn.textContent = 'Отправить заявку';
             btn.disabled = false;
             document.getElementById('sendError').classList.remove('hidden');
         }
-
-        /* Экранируем HTML-спецсимволы чтобы не сломать parse_mode */
-        function escHtml(str) {
-            return str
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
-
+ 
         function resetForm() {
             document.getElementById('formInner').classList.remove('hidden');
             document.getElementById('successMsg').classList.add('hidden');
@@ -303,7 +277,7 @@
             btn.textContent = 'Отправить заявку';
             btn.disabled = false;
         }
-    </script>
+</script>
 
 </body>
 </html>
