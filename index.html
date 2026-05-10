@@ -60,6 +60,7 @@
         .delay-5 { animation-delay: 0.5s !important; }
 
         /* ====== HERO-СЛАЙДЕР ====== */
+
         .hero-slide {
             position: absolute;
             inset: 0;
@@ -165,8 +166,8 @@
             backdrop-filter: blur(4px);
         }
         .slider-arrow:hover { background: rgba(126,190,197,0.7); }
-        .slider-arrow.prev { left: 24px; }
-        .slider-arrow.next { right: 24px; }
+        .slider-arrow.prev { left: 24px; margin-top: 70px; }
+        .slider-arrow.next { right: 24px; margin-top: 70px; }
 
         /* ====== СЧЁТЧИКИ ====== */
         .stats-section {
@@ -536,8 +537,8 @@
             margin-left: 8px;
             transition: background 0.3s, color 0.3s, transform 0.2s;
         }
-        .soc-btn:hover { background: #7EBEC5; color: #fff; transform: translateY(-3px); }
-        .soc-btn img.img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+
+      
 
         /* Разделитель секций */
         .section-divider {
@@ -565,16 +566,22 @@
                     <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
                 </ul>
             </nav>
+            <button class="burger" id="burgerBtn" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
-
-    <!-- ==================== HERO СЛАЙДЕР ==================== -->
-
-
-
+    <!-- Мобильное меню -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="price-and-services.html">Услуги и цены</a></li>
+        </ul>
+    </nav>
     <div class="hero-slider" id="heroSlider">
 
-        <div class="hero-slide active" style="background-image: url('images/6ya55f7C.jpg');">
+        <div class="hero-slide active" style="background-image: url('images/img2.jpg');">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>Автовозофф.рф</h1>
@@ -587,7 +594,7 @@
         </div>
 
 
-        <div class="hero-slide" style="background-image: url('images/IbOeymii.jpg');">
+        <div class="hero-slide" style="background-image: url('images/img7.jpg');">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>GPS-отслеживание в реальном времени</h1>
@@ -598,6 +605,7 @@
             </div>
         </div>
 
+        <!-- Слайд с видео-фоном -->
         <div class="hero-slide hero-slide--video">
             <video class="hero-video-bg" autoplay muted loop playsinline>
                 <source src="videos/video1.mp4" type="video/mp4">
@@ -612,9 +620,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
         <button class="slider-arrow prev" id="sliderPrev" aria-label="Назад">
             <i class="ti ti-chevron-left"></i>
@@ -635,7 +640,7 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item anim-fade-up">
-                <div class="stat-num" data-count="5000">0</div>
+                <div class="stat-num" data-count="500">0</div>
                 <div class="stat-label">автомобилей перевезено</div>
             </div>
             <div class="stat-item anim-fade-up delay-1">
@@ -643,7 +648,7 @@
                 <div class="stat-label">минут — время ответа</div>
             </div>
             <div class="stat-item anim-fade-up delay-2">
-                <div class="stat-num" data-count="20">0</div>
+                <div class="stat-num" data-count="5">0</div>
                 <div class="stat-label">городов со стоянками</div>
             </div>
             <div class="stat-item anim-fade-up delay-3">
@@ -722,13 +727,6 @@
                             <span>Полная защита на время перевозки</span>
                         </div>
                     </li>
-                    <li>
-                        <div class="adv-icon"><i class="ti ti-currency-rubel"></i></div>
-                        <div class="adv-text">
-                            <strong>Оплата частями</strong>
-                            <span>Можете оплатить частями</span>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -788,8 +786,8 @@
                     </div>
                 </div>
                 <div class="video-caption">
-                    <i class="ti ti-parking" style="color:#7EBEC5;"></i>
-                    Наша стоянка
+                    <i class="ti ti-moon" style="color:#7EBEC5;"></i>
+                    Ночной рейс
                 </div>
             </div>
 
@@ -855,7 +853,6 @@
                 <h4>Доставка</h4>
                 <p>Привозим ваш автомобиль в целости и сохранности — принимаете с актом в руках</p>
             </div>
-
         </div>
     </section>
 
@@ -864,7 +861,7 @@
         <div class="cta-inner anim-fade-up">
             <div class="address-block">
                 <i class="ti ti-map-pin"></i>
-                <span>Снеговая улица, 48Ас2</span>
+                <span>Бархатная ул., 10Б, Владивосток</span>
             </div>
             <h2>Готовы отправить автомобиль?</h2>
             <p>Оставьте заявку — свяжемся в течение 15 минут для уточнения деталей и расчёта стоимости.</p>
@@ -873,7 +870,7 @@
     </section>
 
     <!-- ==================== ФУТЕР ==================== -->
-    <footer>
+ <footer>
         <div class="container" style="padding: 0 20px;">
             <div class="footer-content">
                 <div>
@@ -902,7 +899,6 @@
             </div>
         </div>
     </footer>
-
 
     <!-- ==================== СКРИПТЫ ==================== -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -1009,6 +1005,19 @@
             document.addEventListener('mozfullscreenchange',    fsHandler);
             document.addEventListener('MSFullscreenChange',     fsHandler);
         });
+
+        /* ---- Бургер-меню ---- */
+        const burgerBtn  = document.getElementById('burgerBtn');
+        const mobileNav  = document.getElementById('mobileNav');
+        burgerBtn?.addEventListener('click', () => {
+            burgerBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        /* Закрывать при клике на ссылку */
+        mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            burgerBtn.classList.remove('open');
+            mobileNav.classList.remove('open');
+        }));
     </script>
 </body>
 </html>
