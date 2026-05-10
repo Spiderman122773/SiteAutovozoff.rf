@@ -52,7 +52,17 @@
         .d7 { animation-delay: 0.47s !important; }
         .d8 { animation-delay: 0.54s !important; }
 
-        /* === ГЕРОЙ === */
+
+        .services-hero {
+
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .services-hero-bg {
             position: absolute;
             inset: 0;
@@ -363,20 +373,9 @@
 
         /* === FOOTER === */
         .footer-text { color: #ccc; }
-        .soc-btn {
-            display: inline-flex;
-            align-items: center; justify-content: center;
-            width: 40px; height: 40px;
-            background: #444;
-            border-radius: 50%;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #ccc;
-            margin-left: 8px;
-            transition: background 0.3s, color 0.3s, transform 0.2s;
-        }
+
         .soc-btn:hover { background: #7EBEC5; color: #fff; transform: translateY(-3px); }
-        .soc-btn img.img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+        .soc-btn img.img { width: 40px; height: 35px; object-fit: cover; border-radius: 100px; }
     </style>
 </head>
 <body>
@@ -396,16 +395,27 @@
                     <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
                 </ul>
             </nav>
+            <button class="burger" id="burgerBtn" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
+    <!-- Мобильное меню -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="price-and-services.html">Услуги и цены</a></li>
+        </ul>
+    </nav>
 
-    <!-- ==================== ГЕРОЙ ==================== -->
+
     <div class="services-hero">
         <div class="services-hero-bg"></div>
         <div class="services-hero-content">
             <h1>Услуги и цены</h1>
             <p>Перевозка автомобилей из Владивостока по всей России. Собственный парк — без посредников.</p>
-            <div style="margin-top:100px ;" class="hero-badge">
+            <div class="hero-badge">
                 <i class="ti ti-map-pin"></i>
                 Отправление: Владивосток
             </div>
@@ -415,19 +425,19 @@
     <!-- ==================== МАРШРУТЫ И ЦЕНЫ ==================== -->
     <section class="route-line-section">
 
-        <div style ="color: white;" class="section-title anim-up">Маршруты и цены</div>
+        <div class="section-title anim-up">Маршруты и цены</div>
         <div class="section-divider anim-up d1"></div>
-        <p style ="color: rgb(224, 224, 224);" class="section-sub anim-up d2">Стоимость перевозки одного автомобиля из Владивостока, тыс. руб.</p>
-        
+        <p class="section-sub anim-up d2">Стоимость перевозки одного автомобиля из Владивостока, тыс. руб.</p>
+        <div class="origin-label">Владивосток<br><span style="font-size:0.75rem; font-weight:400; color:#7EBEC5;">Точка отправления</span></div>
         <div class="route-timeline">
 
             <!-- Точка отправления -->
-            
+        
             <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:8px;" class="anim-up">
+                
                 <div class="origin-circle">
                     <i class="ti ti-anchor"></i>
                 </div>
-
                 <div style="width:2px; height:30px; background:#7EBEC5; margin-top:8px;"></div>
             </div>
 
@@ -684,7 +694,7 @@
     </section>
 
     <!-- ==================== ПОЧЕМУ МЫ ==================== -->
-    <section class="why-section">
+<section class="why-section">
         <div class="section-title anim-up">Почему выбирают нас</div>
         <div class="section-divider anim-up d1"></div>
         <p class="section-sub anim-up d2" style="margin-bottom:44px;">Работаем без посредников — только свои автовозы и своя команда</p>
@@ -718,7 +728,7 @@
             <div class="why-card anim-scale d6">
                 <div class="why-icon"><i class="ti ti-map-pin"></i></div>
                 <h4>Охраняемые стоянки</h4>
-                <p>Владивосток, Иркутск, Новосибирск, Москва и другие города — везде своя стоянка.</p>
+                <p>Владивосток, Иркутск, Новосибирск, Москва и другие города.</p>
             </div>
             <div class="why-card anim-scale d1">
                 <div class="why-icon"><i class="ti ti ti-truck"></i></div>
@@ -776,7 +786,6 @@
         </div>
     </footer>
 
-
     <script>
         /* Scroll-анимации */
         const observer = new IntersectionObserver((entries) => {
@@ -791,6 +800,18 @@
         document.querySelectorAll(
             '.anim-up, .anim-left, .anim-right, .anim-scale, .anim-fade'
         ).forEach(el => observer.observe(el));
+
+        /* ---- Бургер-меню ---- */
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        burgerBtn?.addEventListener('click', () => {
+            burgerBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            burgerBtn.classList.remove('open');
+            mobileNav.classList.remove('open');
+        }));
     </script>
 
 </body>
