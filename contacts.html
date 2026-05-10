@@ -11,7 +11,7 @@
 <body>
 
     <!-- ==================== ШАПКА ==================== -->
-    <header class="site-header">
+       <header class="site-header">
         <div class="header-inner">
             <div class="logo">
                 <a href="index.html" style="font-family:'Montserrat',sans-serif; font-size:1.4rem; font-weight:700; color:#7EBEC5;">
@@ -25,13 +25,26 @@
                     <li><a href="price-and-services.html" class="active">Услуги и цены</a></li>
                 </ul>
             </nav>
+            <button class="burger" id="burgerBtn" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-    </header>>
+    </header>
+    <!-- Мобильное меню -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="price-and-services.html">Услуги и цены</a></li>
+        </ul>
+    </nav>
 
     <!-- ==================== КАРТА ==================== -->
     <div class="map-wrapper">
         Где нас найти
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5f5c1329c2cfc962fd9d1c146cf9c6920fb867e1cdca7e4452af27cbab633270&amp;width=100%25&amp;height=550&amp;lang=ru_RU&amp;scroll=true"></script>
+        <script type="text/javascript" charset="utf-8" async
+            src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A16b8d3388de657cb3dfa83f27a334ef767b1db6591da6bec6952e96d7c20faaa&width=100%25&height=500&lang=ru_RU&scroll=true">
+        </script>
     </div>
 
     <!-- ==================== КОНТАКТЫ ==================== -->
@@ -69,10 +82,9 @@
                         <div class="contact-icon"><i class="ti ti-map-pin"></i></div>
                         <div>
                             <span class="contact-label">Офис</span>
-                            <span class="contact-value">Снеговая улица, 48Ас2</span>
+                            <span class="contact-value">Бархатная ул., 10Б, Владивосток</span>
                         </div>
                     </div>
-                    
 
                     <div class="work-hours">
                         <h4><i class="ti ti-clock"></i> Режим работы</h4>
@@ -83,17 +95,17 @@
                         <span class="contact-label">Мы на других платформах:</span>
                         <div class="social-icons">
                             <a href="https://t.me/avtovozofff" title="Telegram" class="soc-btn">
-                                <img src="images/images.png">
+                                <img class="img" src="images/images.png">
                             </a>
                             <a href="https://www.avito.ru/user/ca86ffd18bb47ce152d6a563b7fbc708/profile/all?id=8036827566&iid=8036827566&page_from=from_item_messenger&src=messenger&sellerId=ca86ffd18bb47ce152d6a563b7fbc708" title="Avito" class="soc-btn">
-                                <img src="images/4b65cda85454c9849f25215c458823af.jpeg">
+                                <img class="img" src="images/4b65cda85454c9849f25215c458823af.jpeg">
                             </a>
-                        <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
-                        <img class="img" src="images/2gis.webp">
-                        <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
-                        <img class="img" src="images/Max.jpg">
-                    </a>
-                    </a>
+                                <a href="https://2gis.ru/vladivostok/inside/70030076176551652/firm/70000001100982764?m=131.986903%2C43.13285%2F20" title="2gis" class="soc-btn">
+                                <img class="img" src="images/2gis.webp">
+                            </a>
+                                <a href="https://web.max.ru/157492815" title="2gis" class="soc-btn">
+                                <img class="img" src="images/Max.jpg">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -162,7 +174,7 @@
     </section>
 
     <!-- ==================== ФУТЕР ==================== -->
-    <footer>
+ <footer>
         <div class="container" style="padding: 0 20px;">
             <div class="footer-content">
                 <div>
@@ -192,10 +204,14 @@
         </div>
     </footer>
 
-<script>
+    <script>
+        /* ================================================================
+           ВСТАВЬ СЮДА адрес своего Cloudflare Worker'а.
+           Выглядит примерно так:
+           'https://avtovozoff-form.ИМЯ.workers.dev'
+        ================================================================ */
+        const WORKER_URL = 'ВСТАВЬ_АДРЕС_WORKER_СЮДА';
 
-        const WORKER_URL = 'https://ancient-smoke-04f7.gg6527025.workers.dev/';
- 
         /* ---- Анимация появления при скролле ---- */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -205,10 +221,10 @@
                 }
             });
         }, { threshold: 0.15 });
- 
-        document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => observer.observe(el));
- 
 
+        document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => observer.observe(el));
+
+        /* ---- Отправка формы через Cloudflare Worker ---- */
         async function submitContactForm() {
             const nameEl  = document.getElementById('fname');
             const phoneEl = document.getElementById('fphone');
@@ -217,21 +233,21 @@
             const msgEl   = document.getElementById('fmsg');
             const btn     = document.getElementById('submitBtn');
             const errBox  = document.getElementById('sendError');
- 
+
             /* Сброс ошибок */
             [nameEl, phoneEl].forEach(el => el.classList.remove('input-error'));
             errBox.classList.add('hidden');
- 
+
             /* Валидация */
             let valid = true;
             if (!nameEl.value.trim())  { nameEl.classList.add('input-error');  valid = false; }
             if (!phoneEl.value.trim()) { phoneEl.classList.add('input-error'); valid = false; }
             if (!valid) return;
- 
+
             /* Состояние загрузки */
             btn.textContent = 'Отправляем...';
             btn.disabled = true;
- 
+
             try {
                 const res = await fetch(WORKER_URL, {
                     method: 'POST',
@@ -244,9 +260,9 @@
                         message: msgEl.value.trim(),
                     }),
                 });
- 
+
                 const data = await res.json();
- 
+
                 if (data.ok) {
                     document.getElementById('formInner').classList.add('hidden');
                     document.getElementById('successMsg').classList.remove('hidden');
@@ -259,13 +275,13 @@
                 showError(btn);
             }
         }
- 
+
         function showError(btn) {
             btn.textContent = 'Отправить заявку';
             btn.disabled = false;
             document.getElementById('sendError').classList.remove('hidden');
         }
- 
+
         function resetForm() {
             document.getElementById('formInner').classList.remove('hidden');
             document.getElementById('successMsg').classList.add('hidden');
@@ -277,7 +293,18 @@
             btn.textContent = 'Отправить заявку';
             btn.disabled = false;
         }
-</script>
 
+        /* ---- Бургер-меню ---- */
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        burgerBtn?.addEventListener('click', () => {
+            burgerBtn.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+        mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            burgerBtn.classList.remove('open');
+            mobileNav.classList.remove('open');
+        }));
+    </script>
 </body>
 </html>
